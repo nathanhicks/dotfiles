@@ -1,3 +1,24 @@
+set nocompatible        " be iMproved, reauired
+filetype off            " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'bling/vim-airline'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = ","
@@ -14,10 +35,6 @@ command W w !sudo tee % > /dev/null
 set history=700
 
 set laststatus=2
-
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -150,8 +167,8 @@ set expandtab
 set smarttab
 
 " 1 tab == 4 spaces
-set shiftwidth=2
-set tabstop=2
+set shiftwidth=4
+set tabstop=4
 
 " Linebreak on 500 characters
 set lbr
@@ -162,41 +179,7 @@ set si "Smart indent
 set wrap "Wrap lines
 
 " Load pathogen plugin (in ~/.vimrc/autoload)
-execute pathogen#infect()
-
-"NERD TREE
-" Start NERDTree automatically
-autocmd VimEnter * NERDTree
-" Start cursor in editor window sans the NERDTree window
-autocmd VimEnter * wincmd p
-" Toggle NERDTree on or off
-map <C-n> :NERDTreeToggle<CR>
-
-" Force NERDTree window to close when main editor window closes
-function! NERDTreeQuit()
-  redir => buffersoutput
-  silent buffers
-  redir END
-"                     1BufNo  2Mods.     3File           4LineNo
-  let pattern = '^\s*\(\d\+\)\(.....\) "\(.*\)"\s\+line \(\d\+\)$'
-  let windowfound = 0
- 
-  for bline in split(buffersoutput, "\n")
-    let m = matchlist(bline, pattern)
-    
-    if (len(m) > 0)
-      if (m[2] =~ '..a..')
-        let windowfound = 1
-      endif
-    endif
-  endfor
-  
-  if (!windowfound)
-    quitall
-  endif
-endfunction
-autocmd WinEnter * call NERDTreeQuit()
-
+" execute pathogen#infect()
 
 " Highlights the background in a subtle red for text that goes over
 " the 80 column limit (subtle in GUI mode, anyway -in terminal mode it's less so
