@@ -52,6 +52,42 @@ _tmux() {
   echo " [done]"
 }
 
+_zsh() {
+    echo " [setting up zsh...]"
+    if [ "$platform" = "Darwin" ]; then
+        brew install zsh
+        chsh -s $(which zsh)
+    elif [ "$platform" = "Linux" ]; then
+        if [ "$distribution" = "fedora" ]; then
+            sudo dnf install zsh
+            sudo chsh -s $(which zsh)
+        elif [ "$distribution" = "debian" ]; then
+            sudo apt-get install zsh
+            sudo chsh -s $(which zsh)
+        fi
+    else
+        echo "Unknown platform...exiting."
+        exit 1
+    fi
+
+    # oh-my-zsh
+    echo " [installing oh-my-zsh...]"
+    curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh\
+        | sh
+    mkdir -p ~/.oh-my-zsh/custom/plugins 2> /dev/null
+    mkdir -p ~/.oh-my-zsh/custom/themes 2> /dev/null
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git\
+         ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    # .zshrc, color
+    echo " [updating zsh config...]"
+    rm ~/.zshrc 2> /dev/null
+    ln -rs zsh/.zshrc ~/.zshrc
+    ln -rs zsh/light.zsh-theme ~/.oh-my-zsh/custom/themes/light.zsh-theme
+    ln -rs zsh/aliases.zsh ~/.oh-my-zsh/custom/aliases.zsh
+    ln -rs zsh/zsh_highlight_style.zsh ~/.oh-my-zsh/custom/zsh_highlight_style.zsh
+    echo " [done]"
+}
+
 _ls() {
   echo " [setting up ls colors...]"
   ln -rs config/.dircolors.db ~/.dircolors.db
@@ -157,6 +193,7 @@ for arg in "$@"; do
     ls)  _ls;;
     tmux)  _tmux;;
     vim) _vim;;
+    zsh) _zsh;;
     *)  echo "Error: unknown option $arg"
   esac
 done
