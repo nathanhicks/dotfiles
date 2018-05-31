@@ -89,8 +89,8 @@ _zsh() {
 
     # oh-my-zsh
     echo " [installing oh-my-zsh...]"
-    curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh\
-        | sh
+    curl -OL https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh
+    bash install.sh
     mkdir -p ~/.oh-my-zsh/custom/plugins 2> /dev/null
     mkdir -p ~/.oh-my-zsh/custom/themes 2> /dev/null
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git\
