@@ -75,6 +75,12 @@ _zsh() {
         elif [ "$distribution" = "debian" ]; then
             sudo apt-get install zsh
             sudo chsh -s $(which zsh)
+        elif [ "$distribution" = "ubuntu" ]; then
+            sudo apt-get install zsh
+            sudo chsh -s $(which zsh)
+        else
+            echo "Unknown distribution...exiting."
+            exit 1
         fi
     else
         echo "Unknown platform...exiting."
