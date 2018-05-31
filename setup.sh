@@ -36,9 +36,9 @@ fi
 
 _fonts() {
   echo " [setting up fonts...]"
-  if [ $platform = "Darwin" ]; then
+  if [ "$platform" = "Darwin" ]; then
     cp fonts/Inconsolata-g.otf /Library/Fonts
-  elif [ $platform = "Linux" ]; then
+  elif [ "$platform" = "Linux" ]; then
     sudo cp fonts/Inconsolata-g.otf /usr/local/share/fonts
     sudo fc-cache -f -v
   fi
@@ -47,6 +47,17 @@ _fonts() {
 
 _tmux() {
   echo " [setting up tmux...]"
+  if [ "$platform" = "Darwin" ]; then
+      brew install tmux
+  elif [ "$platform" = "Linux" ]; then
+      if [ "$distribution" = "ubuntu"]; then
+          sudo apt install -y tmux
+      elif [ "$distribution" = "debian"]; then
+          sudo apt-get install -y tmux
+      elif [ "$distribution" = "fedora"]; then
+          sudo dnf install -y tmux
+      fi
+  fi
   rm ~/.tmux.conf 2> /dev/null
   ln -rs tmux/.tmux.conf ~/.tmux.conf
   echo " [done]"
@@ -168,6 +179,9 @@ _vim() {
               ~/.vim/bundle/YouCompleteMe/install.py --clang-completer
 
             elif [ "$distribution" = "debian" ]; then
+              sudo apt-get install gcc g++ cmake python-dev
+              ~/.vim/bundle/YouCompleteMe/install.py --clang-completer
+            elif [ "$distribution" = "ubuntu" ]; then
               sudo apt-get install gcc g++ cmake python-dev
               ~/.vim/bundle/YouCompleteMe/install.py --clang-completer
             else
