@@ -67,7 +67,6 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='vim'
 fi
-HOMEBREW_GITHUB_API_TOKEN=24af6e64b111e0b7c7fab3877d414e410d621d67
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -102,6 +101,3 @@ zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=36=31"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias govpnhome='sudo openvpn --config /usr/local/etc/openvpn/PFSENSE-ROUTER-UDP4-1194-nazwadi-ios-config.ovpn'
-export PATH=$PATH:/usr/local/Cellar/openvpn/2.4.4/sbin/
-alias vpn-kill='pgrep vpn | xargs sudo kill -9'
