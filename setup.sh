@@ -50,11 +50,11 @@ _tmux() {
   if [ "$platform" = "Darwin" ]; then
       brew install tmux
   elif [ "$platform" = "Linux" ]; then
-      if [ "$distribution" = "ubuntu"]; then
+      if [ "$distribution" = "ubuntu" ]; then
           sudo apt install -y tmux
-      elif [ "$distribution" = "debian"]; then
+      elif [ "$distribution" = "debian" ]; then
           sudo apt-get install -y tmux
-      elif [ "$distribution" = "fedora"]; then
+      elif [ "$distribution" = "fedora" ]; then
           sudo dnf install -y tmux
       fi
   fi
