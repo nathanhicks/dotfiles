@@ -1,5 +1,5 @@
-set nocompatible        " be iMproved, reauired
-filetype off            " required
+set nocompatible        " be iMproved, required for Vundle
+filetype off            " required for Vundle
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -12,12 +12,35 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'bling/vim-airline'
 
+" Syntax Checking
+Plugin 'nvie/vim-flake8'
+Plugin 'vim-syntastic/syntastic'
+"Plugin 'vim-scripts/Pydiction' need setup
+"Plugin 'vim-scripts/indentpython.vim' need setup
+
+" Color schemes
+Plugin 'jnurmine/Zenburn'
+Plugin 'altercation/vim-colors-solarized'
+
+" Manage git without leaving vim
+Plugin 'tpope/vim-fugitive'
+
+" Provides filesystem tree
+Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
+
+" Search filesystem
+Plugin 'kien/ctrlp.vim'
+
+""code folding
+Plugin 'tmhedberg/SimpylFold'
+
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 
-call vundle#end()            " required
-filetype plugin indent on    " required
+call vundle#end()            " required for Vundle
+filetype plugin indent on    " required for Vundle; enables filetype detection
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
@@ -58,6 +81,16 @@ set colorcolumn=+1
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+" Enable folding with the spacebar
+nnoremap <space> za
+" For Python docstrings for folded code
+let g:SimpylFold_docstring_preview=1
+"Python Folding based on indentation:
+autocmd FileType python set foldmethod=indent
 
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
@@ -132,16 +165,16 @@ syntax enable
 " Set extra options when running in GUI mode
 if has("gui_running")
     set background=light
+    colorscheme solarized
     set guitablabel=%M\ %t
 else
     set background=dark
+    colorscheme solarized
+"    colorscheme zenburn
 endif
 let g:solarized_termtrans = 1
-
-try
-   colorscheme solarized
-catch
-endtry
+" Allows switching between light and dark solarized
+call togglebg#map("<F5>")
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -169,6 +202,24 @@ set smarttab
 " 1 tab == 4 spaces
 set shiftwidth=4
 set tabstop=4
+"
+" PEP 8 Settings for Python
+"au BufNewFile,BufRead *.py
+"    \ set tabstop=4
+"    \ set softtabstop=4
+"    \ set shiftwidth=4
+"    \ set textwidth=79
+"    \ set expandtab
+"    \ set autoindent
+"    \ set fileformat=unix
+" Web Development
+"au BufNewFile,BufRead *.js, *.html, *.css
+"    \ set tabstop=2
+"    \ set softtabstop=2
+"    \ set shiftwidth=2
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " Linebreak on 500 characters
 set lbr
@@ -177,11 +228,15 @@ set tw=500
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
+set encoding=utf-8
 
-" Load pathogen plugin (in ~/.vimrc/autoload)
-" execute pathogen#infect()
+" YouCompleteMe Settings
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+let python_highlight_all=1
 
 " Highlights the background in a subtle red for text that goes over
 " the 80 column limit (subtle in GUI mode, anyway -in terminal mode it's less so
-" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-" match OverLength /\%81v.\+/
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
