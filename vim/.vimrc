@@ -81,6 +81,11 @@ set colorcolumn=+1
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " Enable folding
 set foldmethod=indent
@@ -188,6 +193,7 @@ set ffs=unix,dos,mac
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
 set nowb
+" On top of that, I think swap files are obnoxious
 set noswapfile
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -202,21 +208,12 @@ set smarttab
 " 1 tab == 4 spaces
 set shiftwidth=4
 set tabstop=4
-"
+
 " PEP 8 Settings for Python
-"au BufNewFile,BufRead *.py
-"    \ set tabstop=4
-"    \ set softtabstop=4
-"    \ set shiftwidth=4
-"    \ set textwidth=79
-"    \ set expandtab
-"    \ set autoindent
-"    \ set fileformat=unix
+autocmd FileType python 
+    \setlocal shiftwidth=4 tabstop=4 softtabstop=4 textwidth=79 expandtab 
+    \autoindent fileformat=unix
 " Web Development
-"au BufNewFile,BufRead *.js, *.html, *.css
-"    \ set tabstop=2
-"    \ set softtabstop=2
-"    \ set shiftwidth=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
@@ -228,7 +225,6 @@ set tw=500
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
-set encoding=utf-8
 
 " YouCompleteMe Settings
 let g:ycm_autoclose_preview_window_after_completion=1
