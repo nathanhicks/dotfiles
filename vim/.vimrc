@@ -9,12 +9,12 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'bling/vim-airline'
 
 " Syntax Checking
-Plugin 'nvie/vim-flake8'
-Plugin 'vim-syntastic/syntastic'
+" Plugin 'nvie/vim-flake8'
+" Plugin 'vim-syntastic/syntastic'
 "Plugin 'vim-scripts/Pydiction' need setup
 "Plugin 'vim-scripts/indentpython.vim' need setup
 
@@ -31,6 +31,9 @@ Plugin 'jistr/vim-nerdtree-tabs'
 
 " Search filesystem
 Plugin 'kien/ctrlp.vim'
+
+" Kapeli Dash integration
+Plugin 'rizzatti/dash.vim'
 
 ""code folding
 Plugin 'tmhedberg/SimpylFold'
@@ -173,8 +176,8 @@ if has("gui_running")
     colorscheme solarized
     set guitablabel=%M\ %t
 else
-    set background=dark
-    colorscheme solarized
+    "colorscheme solarized
+    "set background=dark
 "    colorscheme zenburn
 endif
 let g:solarized_termtrans = 1

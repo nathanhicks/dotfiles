@@ -101,3 +101,5 @@ zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=36=31"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias ngrok="~/ngrok"
+alias neo4j="docker run --publish=7474:7474 --publish=7687:7687 --volume=$HOME/neo4j/data:/data --volume=$HOME/neo4j/logs:/logs neo4j:latest"
